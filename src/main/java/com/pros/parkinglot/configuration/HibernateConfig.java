@@ -1,4 +1,4 @@
-package com.pros.parkinglot.configuration;
+package com.telerik.carpoolingapplication.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +17,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class HibernateConfig {
 
-	private final String dbUrl;
-	private final String dbUsername;
-	private final String dbPassword;
+	private String dbUrl, dbUsername, dbPassword;
 
 	@Autowired
 	public HibernateConfig(Environment env) {
@@ -31,28 +29,33 @@ public class HibernateConfig {
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(dataSource());
+
 		sessionFactory.setPackagesToScan("com.pros.parkinglot.models");
-		sessionFactory.setHibernateProperties(getHibernateProperties());
+		sessionFactory.setHibernateProperties(hibernateProperties());
+		sessionFactory.setDataSource(dataSource());
+
 		return sessionFactory;
 	}
 
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl(dbUrl);
 		dataSource.setUsername(dbUsername);
 		dataSource.setPassword(dbPassword);
+
 		return dataSource;
 	}
 
-	private Properties getHibernateProperties() {
+	private Properties hibernateProperties() {
 		Properties hibernateProperties = new Properties();
+
+		hibernateProperties.setProperty("spring.jpa.properties.hibernate.dialect"
+				, "org.hibernate.dialect.MySQLDialect");
 		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
-		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-		//		hibernateProperties.setProperty("hibernate.show_sql", "true");
-		//		hibernateProperties.setProperty("hibernate.format_sql", "true");
+
 		return hibernateProperties;
 	}
 }
