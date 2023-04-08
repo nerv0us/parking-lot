@@ -1,21 +1,21 @@
 package com.pros.parkinglot.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tickets")
+@Table(name = "ticket")
 @Getter
 @Setter
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	@ManyToOne
 	@NotNull

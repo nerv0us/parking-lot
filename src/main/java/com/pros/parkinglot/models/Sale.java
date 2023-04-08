@@ -1,22 +1,22 @@
 package com.pros.parkinglot.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "sales")
+@Table(name = "sale")
 @Getter
 @Setter
 public class Sale {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	@OneToOne
 	@NotNull
@@ -26,6 +26,6 @@ public class Sale {
 	private LocalDateTime date;
 
 	@NotNull
-	private BigDecimal price;
+	private BigDecimal amount;
 
 }

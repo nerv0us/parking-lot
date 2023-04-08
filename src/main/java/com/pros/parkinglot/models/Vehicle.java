@@ -1,24 +1,23 @@
 package com.pros.parkinglot.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "vehicles")
+import javax.persistence.*;
+
 @Getter
 @Setter
+@Entity
+@Table(name = "vehicle")
 public class Vehicle {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
-	@NotNull
+	@Enumerated(EnumType.STRING)
 	private VehicleType vehicleType;
 
-	@NotNull
 	private String licenseNumber;
 
 }
