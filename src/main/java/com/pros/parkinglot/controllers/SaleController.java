@@ -4,16 +4,13 @@ import com.pros.parkinglot.models.Sale;
 import com.pros.parkinglot.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/parking")
+@RequestMapping("/sales")
 public class SaleController {
 
 	private final SaleService saleService;
@@ -23,11 +20,23 @@ public class SaleController {
 		this.saleService = saleService;
 	}
 
-	@GetMapping("/sales")
-	public List<Sale> getSales(
+	@PostMapping("/create")
+	public Object create(@RequestBody Object sale) {
+		return saleService.create(sale);
+	}
+
+	@GetMapping("/report")
+	public List<Sale> report(
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-		return null;
+		return saleService.getSalesByDateRange(startDate, endDate);
 	}
+
+	//	@GetMapping("/report")
+	//	public List<Sale> monthlyReport(@RequestParam @DateTimeFormat(pattern = "yyyy-MM") YearMonth yearMonth) {
+	//		LocalDate startDate = yearMonth.atDay(1);
+	//		LocalDate endDate = yearMonth.atEndOfMonth();
+	//		return saleService.getSalesByDateRange(startDate, endDate);
+	//	}
 }
 
