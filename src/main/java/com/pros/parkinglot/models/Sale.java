@@ -22,10 +22,17 @@ public class Sale {
 	@NotNull
 	private Ticket ticket;
 
+	@OneToOne
+	@NotNull
+	private Vehicle vehicle;
+
 	@NotNull
 	private LocalDateTime date;
 
 	@NotNull
 	private BigDecimal amount;
+
+	@Enumerated(EnumType.STRING)
+	private SaleStatus status;
 
 }
