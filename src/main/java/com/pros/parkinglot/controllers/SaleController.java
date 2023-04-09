@@ -21,7 +21,7 @@ public class SaleController {
 	}
 
 	@PostMapping("/create")
-	public Object create(@RequestBody Object sale) {
+	public Sale create(@RequestBody Sale sale) {
 		return saleService.create(sale);
 	}
 
