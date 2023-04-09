@@ -1,6 +1,8 @@
 package com.pros.parkinglot.services;
 
 import com.pros.parkinglot.models.VehicleType;
+import com.pros.parkinglot.repositories.ParkingSpotRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,9 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ParkingSpotServiceImpl implements ParkingSpotService {
 
+	ParkingSpotRepository parkingSpotRepository;
+
+	@Autowired
+	public ParkingSpotServiceImpl(ParkingSpotRepository parkingSpotRepository) {
+		this.parkingSpotRepository = parkingSpotRepository;
+	}
+
 	@Override
 	public boolean checkHasAvailableSpot(VehicleType vehicleType) {
-		return false;
+		int availableParkingSpots = parkingSpotRepository.countAvailableByVehicleType(vehicleType);
+		return availableParkingSpots > 0;
 	}
 
 }
