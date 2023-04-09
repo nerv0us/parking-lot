@@ -24,4 +24,7 @@ public class Vehicle {
 	@Pattern(regexp = "^[A-Z0-9-]*$")
 	private String plateNumber;
 
+	@OneToOne
+	private Ticket ticket;
+
 }
