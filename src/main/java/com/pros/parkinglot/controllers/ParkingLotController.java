@@ -36,9 +36,10 @@ public class ParkingLotController {
 	public ResponseEntity<Optional<Ticket>> enter(
 			@RequestParam @NotBlank @Pattern(regexp = "^[A-Z0-9-]*$") String plateNumber,
 			@RequestParam @NotBlank @Pattern(regexp = "^(bus|car)$") String vehicleType) {
-		boolean hasAvailableSpot = parkingSpotService.checkHasAvailableSpot(VehicleType.valueOf(vehicleType.toUpperCase()));
+		VehicleType vehicleTypeAsEnum = VehicleType.valueOf(vehicleType.toUpperCase());
+		boolean hasAvailableSpot = parkingSpotService.checkHasAvailableSpot(vehicleTypeAsEnum);
 		return hasAvailableSpot
-				? ResponseEntity.ok().body(Optional.of(parkingLotService.enter(plateNumber)))
+				? ResponseEntity.ok().body(Optional.of(parkingLotService.enter(plateNumber, vehicleTypeAsEnum)))
 				: ResponseEntity.status(HttpStatus.CONFLICT).body(Optional.empty());
 	}
 
