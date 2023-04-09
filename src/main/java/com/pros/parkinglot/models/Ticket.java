@@ -17,7 +17,7 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@ManyToOne
+	@OneToOne
 	@NotNull
 	private Vehicle vehicle;
 
@@ -25,5 +25,8 @@ public class Ticket {
 	private LocalDateTime entryTime;
 
 	private LocalDateTime exitTime;
+
+	@Enumerated(EnumType.STRING)
+	private TicketStatus status;
 
 }
