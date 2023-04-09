@@ -38,9 +38,11 @@ public class ParkingLotController {
 			@RequestParam @NotBlank @Pattern(regexp = "^(bus|car)$") String vehicleType) {
 		VehicleType vehicleTypeAsEnum = VehicleType.valueOf(vehicleType.toUpperCase());
 		boolean hasAvailableSpot = parkingSpotService.checkHasAvailableSpot(vehicleTypeAsEnum);
-		return hasAvailableSpot
-				? ResponseEntity.ok().body(Optional.of(parkingLotService.enter(plateNumber, vehicleTypeAsEnum)))
-				: ResponseEntity.status(HttpStatus.CONFLICT).body(Optional.empty());
+		if (hasAvailableSpot) {
+			Ticket ticket = parkingLotService.enter(plateNumber, vehicleTypeAsEnum);
+			return ResponseEntity.ok().body(Optional.of(ticket));
+		}
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(Optional.empty());
 	}
 
 	@PostMapping("/exit")
@@ -48,10 +50,6 @@ public class ParkingLotController {
 		// Calculate the sale total based on the parking duration and vehicle type
 		// Save the sale record in the database and free up the parking spot
 		return null;
-	}
-
-	private static VehicleType convertToVehicleType(String vehicleType) {
-		return VehicleType.valueOf(vehicleType.toUpperCase());
 	}
 }
 
