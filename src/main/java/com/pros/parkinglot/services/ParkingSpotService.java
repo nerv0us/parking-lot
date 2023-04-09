@@ -4,6 +4,6 @@ import com.pros.parkinglot.models.VehicleType;
 
 public interface ParkingSpotService {
 
-	boolean checkHasAvailableSpot(VehicleType vehicleType);
+	int countAvailableSpots(VehicleType vehicleType);
 
 }

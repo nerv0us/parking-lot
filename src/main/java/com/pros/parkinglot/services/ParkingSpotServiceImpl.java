@@ -18,9 +18,8 @@ public class ParkingSpotServiceImpl implements ParkingSpotService {
 	}
 
 	@Override
-	public boolean checkHasAvailableSpot(VehicleType vehicleType) {
-		int availableParkingSpots = parkingSpotRepository.countAvailableByVehicleType(vehicleType);
-		return availableParkingSpots > 0;
+	public int countAvailableSpots(VehicleType vehicleType) {
+		return parkingSpotRepository.countAvailableByVehicleType(vehicleType);
 	}
 
 }
