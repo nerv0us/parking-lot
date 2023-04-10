@@ -18,6 +18,11 @@ public class PriceServiceImpl implements PriceService {
 				.pricePerDay(BigDecimal.valueOf(10))
 				.currency(Currency.EUR)
 				.create());
+		prices.put(VehicleType.BUS, new Price.Builder()
+				.pricePerHour(BigDecimal.valueOf(5))
+				.pricePerDay(BigDecimal.valueOf(40))
+				.currency(Currency.EUR)
+				.create());
 	}
 
 	@Override
