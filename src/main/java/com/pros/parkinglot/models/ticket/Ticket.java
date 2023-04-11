@@ -1,18 +1,18 @@
-package com.pros.parkinglot.models;
+package com.pros.parkinglot.models.ticket;
 
+import com.pros.parkinglot.models.vehicle.Vehicle;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "sale")
+@Table(name = "ticket")
 @Getter
 @Setter
-public class Sale {
+public class Ticket {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,19 +20,14 @@ public class Sale {
 
 	@OneToOne
 	@NotNull
-	private Ticket ticket;
-
-	@OneToOne
-	@NotNull
 	private Vehicle vehicle;
 
 	@NotNull
-	private LocalDateTime date;
+	private LocalDateTime entryTime;
 
-	@NotNull
-	private BigDecimal amount;
+	private LocalDateTime exitTime;
 
 	@Enumerated(EnumType.STRING)
-	private SaleStatus status;
+	private TicketStatus status;
 
 }

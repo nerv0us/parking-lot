@@ -1,10 +1,10 @@
 package com.pros.parkinglot.controllers;
 
-import com.pros.parkinglot.models.Sale;
-import com.pros.parkinglot.models.Ticket;
-import com.pros.parkinglot.models.VehicleType;
-import com.pros.parkinglot.services.ParkingLotService;
-import com.pros.parkinglot.services.ParkingSpotService;
+import com.pros.parkinglot.models.sale.Sale;
+import com.pros.parkinglot.models.ticket.Ticket;
+import com.pros.parkinglot.models.vehicle.VehicleType;
+import com.pros.parkinglot.services.parkinglot.ParkingLotService;
+import com.pros.parkinglot.services.parkingspot.ParkingSpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,11 @@
-package com.pros.parkinglot.services;
+package com.pros.parkinglot.services.parkingrate;
 
-import com.pros.parkinglot.models.Ticket;
-import com.pros.parkinglot.models.Vehicle;
-import com.pros.parkinglot.models.VehicleType;
+import com.pros.parkinglot.models.ticket.Ticket;
+import com.pros.parkinglot.models.vehicle.Vehicle;
+import com.pros.parkinglot.models.vehicle.VehicleType;
 import com.pros.parkinglot.repositories.VehicleRepository;
+import com.pros.parkinglot.services.parkinglot.ParkingLotPrice;
+import com.pros.parkinglot.services.parkinglot.ParkingLotPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,12 @@ import java.util.Optional;
 @Transactional
 public class ParkingRateCalculatorServiceImpl implements ParkingRateCalculatorService {
 
-	private final PriceService priceService;
+	private final ParkingLotPriceService parkingLotPriceService;
 	private final VehicleRepository vehicleRepository;
 
 	@Autowired
-	public ParkingRateCalculatorServiceImpl(PriceService priceService, VehicleRepository vehicleRepository) {
-		this.priceService = priceService;
+	public ParkingRateCalculatorServiceImpl(ParkingLotPriceService parkingLotPriceService, VehicleRepository vehicleRepository) {
+		this.parkingLotPriceService = parkingLotPriceService;
 		this.vehicleRepository = vehicleRepository;
 	}
 
@@ -30,11 +32,11 @@ public class ParkingRateCalculatorServiceImpl implements ParkingRateCalculatorSe
 	public BigDecimal calculateParkingRateAmount(Ticket ticket) {
 		Duration duration = getParkingDuration(ticket);
 		VehicleType vehicleType = getVehicleType(ticket);
-		Price price = priceService.getPrice(vehicleType);
+		ParkingLotPrice parkingLotPrice = parkingLotPriceService.getPrice(vehicleType);
 		long durationHours = getDurationHours(duration);
 		return durationHours < ParkingRateCalculatorConstants.HOURS_IN_DAY
-				? calculateSingleDayAmount(durationHours, price)
-				: calculateMultipleDaysAmount(durationHours, price);
+				? calculateSingleDayAmount(durationHours, parkingLotPrice)
+				: calculateMultipleDaysAmount(durationHours, parkingLotPrice);
 	}
 
 	private Duration getParkingDuration(Ticket ticket) {
@@ -58,15 +60,15 @@ public class ParkingRateCalculatorServiceImpl implements ParkingRateCalculatorSe
 		return hours;
 	}
 
-	private BigDecimal calculateSingleDayAmount(long durationHours, Price price) {
-		BigDecimal vehiclePricePerHour = price.getPricePerDay();
+	private BigDecimal calculateSingleDayAmount(long durationHours, ParkingLotPrice parkingLotPrice) {
+		BigDecimal vehiclePricePerHour = parkingLotPrice.getPricePerDay();
 		return vehiclePricePerHour.multiply(BigDecimal.valueOf(durationHours));
 	}
 
-	private BigDecimal calculateMultipleDaysAmount(long durationHours, Price price) {
-		BigDecimal vehiclePricePerDay = price.getPricePerDay();
+	private BigDecimal calculateMultipleDaysAmount(long durationHours, ParkingLotPrice parkingLotPrice) {
+		BigDecimal vehiclePricePerDay = parkingLotPrice.getPricePerDay();
 		BigDecimal pricePerDays = calculatePricePerDays(vehiclePricePerDay, durationHours);
-		BigDecimal vehiclePricePerHour = price.getPricePerHour();
+		BigDecimal vehiclePricePerHour = parkingLotPrice.getPricePerHour();
 		BigDecimal pricePerHours = calculatePricePerHours(vehiclePricePerHour, durationHours);
 		return pricePerDays.add(pricePerHours);
 	}

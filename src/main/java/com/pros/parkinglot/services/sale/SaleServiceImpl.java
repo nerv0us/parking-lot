@@ -1,6 +1,6 @@
-package com.pros.parkinglot.services;
+package com.pros.parkinglot.services.sale;
 
-import com.pros.parkinglot.models.Sale;
+import com.pros.parkinglot.models.sale.Sale;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package com.pros.parkinglot.models;
+package com.pros.parkinglot.models.sale;
 
 public enum SaleStatus {
 	PENDING,

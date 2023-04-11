@@ -1,6 +1,6 @@
-package com.pros.parkinglot.services;
+package com.pros.parkinglot.services.parkingspot;
 
-import com.pros.parkinglot.models.VehicleType;
+import com.pros.parkinglot.models.vehicle.VehicleType;
 import com.pros.parkinglot.repositories.ParkingSpotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

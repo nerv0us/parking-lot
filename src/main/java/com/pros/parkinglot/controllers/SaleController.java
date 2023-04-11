@@ -1,7 +1,7 @@
 package com.pros.parkinglot.controllers;
 
-import com.pros.parkinglot.models.Sale;
-import com.pros.parkinglot.services.SaleService;
+import com.pros.parkinglot.models.sale.Sale;
+import com.pros.parkinglot.services.sale.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

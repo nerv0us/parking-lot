@@ -1,4 +1,4 @@
-package com.pros.parkinglot.services;
+package com.pros.parkinglot.services.parkingrate;
 
 public class ParkingRateCalculatorConstants {
 

@@ -1,8 +1,13 @@
-package com.pros.parkinglot.services;
+package com.pros.parkinglot.services.parkinglot;
 
-import com.pros.parkinglot.models.*;
+import com.pros.parkinglot.models.sale.Sale;
+import com.pros.parkinglot.models.ticket.Ticket;
+import com.pros.parkinglot.models.ticket.TicketStatus;
+import com.pros.parkinglot.models.vehicle.Vehicle;
+import com.pros.parkinglot.models.vehicle.VehicleType;
 import com.pros.parkinglot.repositories.TicketRepository;
 import com.pros.parkinglot.repositories.VehicleRepository;
+import com.pros.parkinglot.services.parkingrate.ParkingRateCalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
