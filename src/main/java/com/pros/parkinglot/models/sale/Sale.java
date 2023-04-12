@@ -1,5 +1,6 @@
 package com.pros.parkinglot.models.sale;
 
+import com.pros.parkinglot.enums.commons.Currency;
 import com.pros.parkinglot.models.ticket.Ticket;
 import com.pros.parkinglot.models.vehicle.Vehicle;
 import lombok.Getter;
@@ -36,5 +37,8 @@ public class Sale {
 
 	@Enumerated(EnumType.STRING)
 	private SaleStatus status;
+
+	@Enumerated(EnumType.STRING)
+	private Currency currency;
 
 }
