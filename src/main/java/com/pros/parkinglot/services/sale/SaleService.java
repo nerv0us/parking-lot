@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface SaleService {
 
-	Sale create(Object sale);
-
 	List<Sale> getSalesByDateRange(LocalDate startDate, LocalDate endDate);
 
 }
