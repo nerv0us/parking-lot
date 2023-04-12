@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @Validated
-@RequestMapping("/parking")
+@RequestMapping("/api/parking")
 public class ParkingLotController {
 
 	private final ParkingLotService parkingLotService;
@@ -48,10 +48,14 @@ public class ParkingLotController {
 	}
 
 	@PostMapping("/exit")
-	public Sale exit(@RequestParam @NotBlank Long ticketId) {
+	public ResponseEntity<Sale> exit(@RequestParam @NotBlank String ticketId) {
 		// Calculate the sale total based on the parking duration and vehicle type
 		// Save the sale record in the database and free up the parking spot
-		return null;
+		Sale sale = parkingLotService.exit(Long.parseLong(ticketId));
+		if (sale != null) {
+			return ResponseEntity.ok().body(sale);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	}
 
 	private int getAvailableSpots(String vehicleType) {
