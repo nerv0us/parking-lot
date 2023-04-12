@@ -1,4 +1,4 @@
-package com.pros.parkinglot.services.parkingrate;
+package com.pros.parkinglot;
 
 import com.pros.parkinglot.models.ticket.Ticket;
 import com.pros.parkinglot.models.ticket.TicketStatus;
@@ -6,6 +6,7 @@ import com.pros.parkinglot.models.vehicle.Vehicle;
 import com.pros.parkinglot.models.vehicle.VehicleType;
 import com.pros.parkinglot.repositories.VehicleRepository;
 import com.pros.parkinglot.services.parkinglot.ParkingLotPriceServiceImpl;
+import com.pros.parkinglot.services.parkingrate.ParkingRateCalculatorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
