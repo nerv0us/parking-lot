@@ -1,5 +1,6 @@
 package com.pros.parkinglot.models.vehicle;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -22,4 +24,7 @@ public class Vehicle {
 	@NotNull
 	private String plateNumber;
 
+	public Vehicle() {
+
+	}
 }

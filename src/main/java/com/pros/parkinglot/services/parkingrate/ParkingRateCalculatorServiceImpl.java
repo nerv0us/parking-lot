@@ -61,7 +61,7 @@ public class ParkingRateCalculatorServiceImpl implements ParkingRateCalculatorSe
 	}
 
 	private BigDecimal calculateSingleDayAmount(long durationHours, ParkingLotPrice parkingLotPrice) {
-		BigDecimal vehiclePricePerHour = parkingLotPrice.getPricePerDay();
+		BigDecimal vehiclePricePerHour = parkingLotPrice.getPricePerHour();
 		return vehiclePricePerHour.multiply(BigDecimal.valueOf(durationHours));
 	}
 

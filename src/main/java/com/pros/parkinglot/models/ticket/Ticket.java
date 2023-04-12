@@ -2,16 +2,18 @@ package com.pros.parkinglot.models.ticket;
 
 import com.pros.parkinglot.models.vehicle.Vehicle;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "ticket")
 @Getter
 @Setter
+@AllArgsConstructor
+@Entity
+@Table(name = "ticket")
 public class Ticket {
 
 	@Id
@@ -29,5 +31,9 @@ public class Ticket {
 
 	@Enumerated(EnumType.STRING)
 	private TicketStatus status;
+
+	public Ticket() {
+
+	}
 
 }
