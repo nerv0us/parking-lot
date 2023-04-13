@@ -1,0 +1,182 @@
+openapi: "3.0.3"
+info:
+   title: "parking_lot API"
+   description: "parking_lot API"
+   version: "1.0.0"
+servers:
+   -  url: "https://parking_lot"
+paths:
+   /api/sales/monthlyReport:
+      get:
+         summary: "GET api/sales/monthlyReport"
+         operationId: "monthlyReport"
+         parameters:
+            -  name: "yearMonth"
+               in: "query"
+               required: true
+               schema:
+                  $ref: "#/components/schemas/YearMonth"
+         responses:
+            "200":
+               description: "OK"
+               content:
+                  '*/*':
+                     schema:
+                        type: "array"
+                        items:
+                           $ref: "#/components/schemas/Sale"
+   /api/sales/report:
+      get:
+         summary: "GET api/sales/report"
+         operationId: "report"
+         parameters:
+            -  name: "startDate"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+                  format: "date"
+            -  name: "endDate"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+                  format: "date"
+         responses:
+            "200":
+               description: "OK"
+               content:
+                  '*/*':
+                     schema:
+                        type: "array"
+                        items:
+                           $ref: "#/components/schemas/Sale"
+   /api/parking/enter:
+      post:
+         summary: "POST api/parking/enter"
+         operationId: "enter"
+         parameters:
+            -  name: "plateNumber"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+            -  name: "vehicleType"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+         responses:
+            "200":
+               description: "OK"
+               content:
+                  '*/*':
+                     schema:
+                        $ref: "#/components/schemas/Ticket"
+   /api/parking/exit:
+      post:
+         summary: "POST api/parking/exit"
+         operationId: "exit"
+         parameters:
+            -  name: "ticketId"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+         responses:
+            "200":
+               description: "OK"
+               content:
+                  '*/*':
+                     schema:
+                        $ref: "#/components/schemas/Sale"
+   /api/parking/parkingSpots:
+      get:
+         summary: "GET api/parking/parkingSpots"
+         operationId: "getParkingSpots"
+         parameters:
+            -  name: "vehicleType"
+               in: "query"
+               required: true
+               schema:
+                  type: "string"
+         responses:
+            "200":
+               description: "OK"
+               content:
+                  '*/*':
+                     schema:
+                        type: "integer"
+                        format: "int32"
+components:
+   schemas:
+      Vehicle:
+         type: "object"
+         properties:
+            id:
+               type: "integer"
+               format: "int64"
+            vehicleType:
+               type: "string"
+               enum:
+                  - "CAR"
+                  - "BUS"
+            plateNumber:
+               type: "string"
+      Ticket:
+         type: "object"
+         properties:
+            id:
+               type: "integer"
+               format: "int64"
+            vehicle:
+               $ref: "#/components/schemas/Vehicle"
+            entryTime:
+               type: "string"
+               format: "date-time"
+            exitTime:
+               type: "string"
+               format: "date-time"
+            status:
+               type: "string"
+               enum:
+                  - "ACTIVE"
+                  - "PAID"
+                  - "LOST"
+      BigDecimal:
+         type: "object"
+         properties: { }
+      Sale:
+         type: "object"
+         properties:
+            id:
+               type: "integer"
+               format: "int64"
+            ticket:
+               $ref: "#/components/schemas/Ticket"
+            vehicle:
+               $ref: "#/components/schemas/Vehicle"
+            date:
+               type: "string"
+               format: "date-time"
+            amount:
+               $ref: "#/components/schemas/BigDecimal"
+            status:
+               type: "string"
+               enum:
+                  - "PENDING"
+                  - "COMPLETED"
+                  - "CANCELLED"
+            currency:
+               type: "string"
+               enum:
+                  - "EUR"
+      YearMonth:
+         type: "object"
+         properties:
+            year:
+               type: "integer"
+               format: "int32"
+            month:
+               type: "integer"
+               format: "int32"
